@@ -1,0 +1,39 @@
+<caption>
+  <div class="viewYear">
+    <button type="button" (click)="changeYear(-1)">⇦</button>
+
+    <span>Year: {{curentYear}}</span>
+
+    <button type="button" (click)="changeYear(1)">⇨</button>
+  </div>
+
+  <div class="viewMonth">
+    <button type="button" (click)="changeMonth(-1)">⇦</button>
+
+    <span>Month: {{curentMonthName}}</span>
+
+    <button type="button" (click)="changeMonth(1)">⇨</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Mon</th>
+        <th>Tue</th>
+        <th>Wen</th>
+        <th>Thu</th>
+        <th>Fri</th>
+        <th>Sat</th>
+        <th>Sun</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let week of weeks">
+        <td *ngFor="let day of week.days" (click)="clickOnDate(day)">
+          {{day}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</caption>
+

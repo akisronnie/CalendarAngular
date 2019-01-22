@@ -1,0 +1,20 @@
+<div id="todoContainer">
+    <h1>TODO LIST</h1>
+    <h1>{{selectedDate.date}} {{selectedDate.month}} {{selectedDate.year}}</h1>
+      <input id="newMessage" 
+      autofocus="autofocus" 
+      type="text" 
+      placeholder="Whats needs to be done?" 
+      (change)="changeInput()"
+      [(ngModel)]="inputNewTask">
+    
+      <ul>
+        <li *ngFor="let key of todoList">
+            <input type="checkbox" name="{{key.id}}" (click)="checkInput($event,key)">
+            <label for="{{key.id}}">{{key.text}}</label>
+            <button type="button" (click)="deleteElem(key)">X</button>
+        </li> 
+      </ul>
+     
+    
+    </div>

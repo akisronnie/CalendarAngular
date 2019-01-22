@@ -1,0 +1,35 @@
+table {
+  border-collapse: collapse;
+  margin-left: 20px;
+  margin-right: 20px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+td,
+th {
+  border: 1px solid black;
+  padding: 3px;
+  text-align: center;
+}
+
+td:hover {
+  background-color: palegreen;
+}
+
+th {
+  font-weight: bold;
+  background-color: #E6E6E6;
+}
+
+.viewYear, .viewMonth { 
+  padding: 10px;
+  font-size: 20px;
+}
+
+span {
+  padding:10px;
+}
+button {
+  font-size: 20px;
+}
