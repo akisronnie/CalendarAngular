@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   public isShowTodo: boolean = false;
-  public myNotes: {}[];
+  public myNotes: {};
   public selectedDate: {year: string, month: string, date: string};
 
   public clickOnDate(date: {year: string, month: string, date: string}): void {
@@ -21,11 +21,12 @@ export class AppComponent {
   }
 
 
-  public changeInput(event): void {
-  const findItem: string = `${this.selectedDate.year}${this.selectedDate.month}${this.selectedDate.date}`;
+  // public changeInput(event): void {
+  // const findItem: string = `${this.selectedDate.year}${this.selectedDate.month}${this.selectedDate.date}`;
+  // if (this.myNotes.hasOwnProperty(findItem)) {
+  //   this.myNotes[findItem].push(event);
+  // console.log(this.myNotes);
+  // }
 
-  // this.myNotes.some(findItem);
-  }
-
+// }
 }
-

@@ -20,7 +20,7 @@ export class CalendarComponent implements OnInit {
   }
 
   public clickOnDate(td: string): void {
-   this.clickValue.emit({year: `${this.curentYear}`, month: this.getMonthName(this.curentMonth), date: td});
+   this.clickValue.emit({year: `${this.curentYear}`, month: `${this.getMonthName(this.curentMonth)}`, date: `${td}`});
   }
 
   public changeYear(changeYearValue: number): void {
