@@ -11,7 +11,7 @@ export class CalendarComponent implements OnInit {
   public curentMonth: number;
   public curentMonthName: string;
 
-  @Output() public clickValue: EventEmitter<string> = new EventEmitter;
+  @Output() public clickValue: EventEmitter<{}> = new EventEmitter;
 
   public constructor() { }
 
@@ -20,7 +20,8 @@ export class CalendarComponent implements OnInit {
   }
 
   public clickOnDate(td: string): void {
-   this.clickValue.emit({year: `${this.curentYear}`, month: `${this.getMonthName(this.curentMonth)}`, date: `${td}`});
+    let selectedDate:{year: string; month: string; date: string} = {year: `${this.curentYear}`, month: `${this.getMonthName(this.curentMonth)}`, date: `${td}`}
+    this.clickValue.emit(selectedDate);
   }
 
   public changeYear(changeYearValue: number): void {

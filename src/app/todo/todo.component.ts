@@ -1,5 +1,6 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
 
+
 @Component({
   selector: 'app-todo',
   templateUrl: './todo.component.html',
@@ -11,24 +12,35 @@ export class TodoComponent  {
   public position = 0;
 
   @Input() public selectedDate: {};
-  @Output() public changedInput: EventEmitter<string> = new EventEmitter;
+  @Input() public selectedNote: {id: number; text:string; succsess: boolean}[];
+  @Output() public changedInput: EventEmitter<{}[]> = new EventEmitter;
 
 
-  deleteElem(deletedEl): void {
-    this.todoList = this.todoList.filter((list) => {
-      if (list !== deletedEl) {
+  public changeInput(): void {
+    this.selectedNote.forEach((note) => {
+      if (note.id>this.position) {
+        this.position = note.id+1;
+      }
+    });
+    
+    console.log( this.selectedNote)
+    this.selectedNote.push({ text: this.inputNewTask, succsess: false, id: this.position });
+    this.changedInput.emit(this.selectedNote);
+     this.position++;
+     this.inputNewTask = '';
+   }
+
+
+  deleteElem(deletedElement): void {
+    this.selectedNote = this.selectedNote.filter((list) => {
+      if (list !== deletedElement) {
 
         return list;
       }
     });
+    this.changedInput.emit(this.selectedNote);
   }
 
-  public changeInput(): void {
-    this.changedInput.emit({ text: this.inputNewTask, succsess: false, id: this.position });
-    this.todoList.push({ text: this.inputNewTask, succsess: false, id: this.position });
-    this.position++;
-    this.inputNewTask = '';
-  }
 
 
 

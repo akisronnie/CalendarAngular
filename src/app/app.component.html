@@ -3,7 +3,8 @@
   </app-calendar>
   <app-todo *ngIf="isShowTodo" 
   (changedInput)="changeInput($event)"
-  [selectedDate]="selectedDate">
+  [selectedDate]="selectedDate"
+  [selectedNote]="selectedNote">
   </app-todo>
 </div>
  
