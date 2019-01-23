@@ -1,4 +1,5 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { notEqual } from 'assert';
 
 @Component({
   selector: 'app-todo',
@@ -8,6 +9,9 @@ import { Component, Output, EventEmitter, Input } from '@angular/core';
 export class TodoComponent {
   public inputNewTask: string;
   public position: number = 0;
+  public isShowRedactField: boolean = true;
+  public redactField: string;
+  public redactNote: { id: number; text: string; succsess: boolean };
 
   @Input() public selectedDate: {};
   @Input() public selectedNote: { id: number; text: string; succsess: boolean }[];
@@ -25,6 +29,18 @@ export class TodoComponent {
     this.changedInput.emit(this.selectedNote);
     this.position++;
     this.inputNewTask = '';
+  }
+
+  public changeNote(note: { id: number; text: string; succsess: boolean }): void {
+    console.log(note);
+    this.isShowRedactField = false;
+    this.redactField = note.text;
+    this.redactNote = note;
+  }
+
+  public changeRedact(): void {
+    this.redactNote.text = this.redactField;
+    this.isShowRedactField = true;
   }
 
   public deleteElem(deletedElement: {}): void {

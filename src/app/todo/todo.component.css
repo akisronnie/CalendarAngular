@@ -44,8 +44,15 @@ li input {
 
 li button {
   position: absolute;
-  right: 10px;
   top: 20px;
+}
+
+.redact {
+  right: 40px;
+}
+
+.close {
+  right: 10px;
 }
 
 .button-container {

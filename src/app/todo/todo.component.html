@@ -6,7 +6,15 @@
       type="text" 
       placeholder="Whats needs to be done?" 
       (change)="changeInput()"
-      [(ngModel)]="inputNewTask">
+      [(ngModel)]="inputNewTask"
+      *ngIf="isShowRedactField">
+     
+      <input id="newMessage" 
+      autofocus="autofocus" 
+      type="text" 
+      (change)="changeRedact()"
+      [(ngModel)]="redactField"
+      *ngIf="!isShowRedactField">
     
       <ul>
         <li *ngFor="let key of selectedNote" 
@@ -21,7 +29,11 @@
               {{key.text}}
             </label>
            
-            <button type="button" 
+            <button type="button" class="redact" 
+            (click)="changeNote(key)">
+            ✎
+            </button>
+            <button type="button"  class="close"
               (click)="deleteElem(key)">
               X
             </button>
