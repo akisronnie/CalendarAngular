@@ -1,10 +1,12 @@
 <div class="wrapper">
-  <app-calendar (clickValue)="clickOnDate($event)">
+  <app-calendar (clickValue)="clickOnDate($event)"
+                [myNotes]="myNotes">
   </app-calendar>
+
   <app-todo *ngIf="isShowTodo" 
-  (changedInput)="changeInput($event)"
-  [selectedDate]="selectedDate"
-  [selectedNote]="selectedNote">
+            (changedInput)="changeInput($event)"
+            [selectedDate]="selectedDate"
+            [selectedNote]="selectedNote">
   </app-todo>
 </div>
  

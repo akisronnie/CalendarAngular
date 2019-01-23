@@ -7,36 +7,40 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   public isShowTodo: boolean = false;
+  public notesFromStorage: string;
   public myNotes: {} = {};
-  public selectedDate: {year: string; month: string; date: string};
-  public selectedNote:[] = [];
+  public selectedDate: { year: string; month: string; date: string };
+  public selectedNote: [] = [];
+
   private key: string;
-  public clickOnDate(date): void {
+
+
+  public constructor() {
+    this.notesFromStorage = localStorage.getItem('myNotesAngular');
+    this.myNotes = this.notesFromStorage ? JSON.parse(this.notesFromStorage) : {};
+  }
+
+  public saveInLocalStorage(): void {
+    localStorage.setItem('myNotesAngular', JSON.stringify(this.myNotes));
+  }
+
+  public clickOnDate(date: { year: string; month: string; date: string }): void {
     this.selectedDate = date;
-    console.log(date);
+
     if ((Number(date.date) !== 0)) {
       this.isShowTodo = true;
-     } else {
-       this.isShowTodo = false;
-     }
-     this.key = `${date.year}${date.month}${date.date}`;
-     this.selectedNote = this.myNotes.hasOwnProperty(this.key) ? this.myNotes[this.key] : [];
+    } else {
+      this.isShowTodo = false;
     }
 
-  public changeInput(event): void {
-    console.log(event)
+    this.key = `${date.year}${date.month}${date.date}`;
+    this.selectedNote = this.myNotes.hasOwnProperty(this.key) ? this.myNotes[this.key] : [];
+    this.saveInLocalStorage();
+  }
+
+  public changeInput(event: []): void {
     this.selectedNote = event;
     this.myNotes[this.key] = event;
-    console.log(this.myNotes)
+    this.saveInLocalStorage();
   }
 }
-
- 
-  // public changeInput(event): void {
-  // const findItem: string = `${this.selectedDate.year}${this.selectedDate.month}${this.selectedDate.date}`;
-  // if (this.myNotes.hasOwnProperty(findItem)) {
-  //   this.myNotes[findItem].push(event);
-  // console.log(this.myNotes);
-  // }
-
-// }

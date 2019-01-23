@@ -22,14 +22,29 @@ th {
   background-color: #E6E6E6;
 }
 
-.viewYear, .viewMonth { 
+.viewYear,
+.viewMonth {
   padding: 10px;
   font-size: 20px;
 }
 
 span {
-  padding:10px;
+  padding: 10px;
 }
+
 button {
   font-size: 20px;
+}
+
+.is-note {
+  background-color: lime;
+}
+
+td:focus {
+  background-color: lightcoral;
+}
+
+.current-day {
+  color: red;
+  font-weight: bold;
 }

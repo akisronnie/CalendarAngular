@@ -29,8 +29,11 @@
     </thead>
     <tbody>
       <tr *ngFor="let week of weeks">
-        <td *ngFor="let day of week.days" (click)="clickOnDate(day)">
-          {{day}}
+        <td *ngFor="let day of week.days" 
+            (click)="clickOnDate(day)"
+            [class.is-note]="day.isActive"
+            [class.current-day]="day.currentDay">
+          {{day.value}}
         </td>
       </tr>
     </tbody>

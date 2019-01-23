@@ -9,10 +9,22 @@
       [(ngModel)]="inputNewTask">
     
       <ul>
-        <li *ngFor="let key of selectedNote">
-            <input type="checkbox" name="{{key.id}}" (click)="checkInput($event,key)">
-            <label for="{{key.id}}">{{key.text}}</label>
-            <button type="button" (click)="deleteElem(key)">X</button>
+        <li *ngFor="let key of selectedNote" 
+          [class.complete]="key.succsess">
+            <input type="checkbox" 
+              name="{{key.id}}" 
+              (click)="checkInput(key)"
+              [checked]="key.succsess">
+           
+            <label for="{{key.id}}" 
+              [class.complete]="key.succsess">
+              {{key.text}}
+            </label>
+           
+            <button type="button" 
+              (click)="deleteElem(key)">
+              X
+            </button>
         </li> 
       </ul>
      
