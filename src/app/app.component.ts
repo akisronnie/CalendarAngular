@@ -1,5 +1,11 @@
 import { Component } from '@angular/core';
 
+type TDate = {
+  year: string;
+  month: string;
+  date: string
+};
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,12 +13,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   public isShowTodo: boolean = false;
-  public notesFromStorage: string;
   public myNotes: {} = {};
-  public selectedDate: { year: string; month: string; date: string };
+  public selectedDate: TDate;
   public selectedNote: [] = [];
 
   private key: string;
+  private notesFromStorage: string;
 
 
   public constructor() {
@@ -27,14 +33,12 @@ export class AppComponent {
   public clickOnDate(date: { year: string; month: string; date: string }): void {
     this.selectedDate = date;
 
-    if ((Number(date.date) !== 0)) {
-      this.isShowTodo = true;
-    } else {
-      this.isShowTodo = false;
-    }
+    this.isShowTodo = Number(date.date) !== 0;
 
     this.key = `${date.year}${date.month}${date.date}`;
-    this.selectedNote = this.myNotes.hasOwnProperty(this.key) ? this.myNotes[this.key] : [];
+    this.selectedNote = this.myNotes.hasOwnProperty(this.key)
+      ? this.myNotes[this.key]
+      : [];
     this.saveInLocalStorage();
   }
 

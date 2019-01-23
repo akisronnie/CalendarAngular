@@ -1,5 +1,16 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
-import { notEqual } from 'assert';
+
+type TNote = {
+  id: number;
+  text: string;
+  succsess: boolean
+};
+
+type TDate = {
+  year: string;
+  month: string;
+  date: string
+};
 
 @Component({
   selector: 'app-todo',
@@ -9,13 +20,13 @@ import { notEqual } from 'assert';
 export class TodoComponent {
   public inputNewTask: string;
   public position: number = 0;
-  public isShowRedactField: boolean = true;
-  public redactField: string;
-  public redactNote: { id: number; text: string; succsess: boolean };
+  public isShowEditField: boolean = true;
+  public editField: string;
+  public editNote: TNote;
 
-  @Input() public selectedDate: {};
-  @Input() public selectedNote: { id: number; text: string; succsess: boolean }[];
-  @Output() public changedInput: EventEmitter<{}[]> = new EventEmitter;
+  @Input() public selectedDate: TDate;
+  @Input() public selectedNote: TNote[];
+  @Output() public changedInput: EventEmitter<TNote[]> = new EventEmitter;
 
 
   public changeInput(): void {
@@ -27,28 +38,22 @@ export class TodoComponent {
 
     this.selectedNote.push({ text: this.inputNewTask, succsess: false, id: this.position });
     this.changedInput.emit(this.selectedNote);
-    this.position++;
     this.inputNewTask = '';
   }
 
-  public changeNote(note: { id: number; text: string; succsess: boolean }): void {
-    this.isShowRedactField = false;
-    this.redactField = note.text;
-    this.redactNote = note;
+  public changeNote(note: TNote): void {
+    this.isShowEditField = false;
+    this.editField = note.text;
+    this.editNote = note;
   }
 
   public changeRedact(): void {
-    this.redactNote.text = this.redactField;
-    this.isShowRedactField = true;
+    this.editNote.text = this.editField;
+    this.isShowEditField = true;
   }
 
   public deleteElem(deletedElement: {}): void {
-    this.selectedNote = this.selectedNote.filter((list: {}) => {
-      if (list !== deletedElement) {
-
-        return list;
-      }
-    });
+    this.selectedNote = this.selectedNote.filter((list: {}) => list !== deletedElement);
     this.changedInput.emit(this.selectedNote);
   }
 

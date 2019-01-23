@@ -2,43 +2,43 @@
     <h1>TODO LIST</h1>
     <h1>{{selectedDate.date}} {{selectedDate.month}} {{selectedDate.year}}</h1>
       <input id="newMessage" 
-      autofocus="autofocus" 
-      type="text" 
-      placeholder="Whats needs to be done?" 
-      (change)="changeInput()"
-      [(ngModel)]="inputNewTask"
-      *ngIf="isShowRedactField">
+             autofocus="autofocus" 
+             type="text" 
+             placeholder="Whats needs to be done?" 
+             (change)="changeInput()"
+             [(ngModel)]="inputNewTask"
+             *ngIf="isShowEditField">
      
       <input id="newMessage" 
-      autofocus="autofocus" 
-      type="text" 
-      (change)="changeRedact()"
-      [(ngModel)]="redactField"
-      *ngIf="!isShowRedactField">
+             autofocus="autofocus" 
+             type="text" 
+             (change)="changeRedact()"
+             [(ngModel)]="editField"
+             *ngIf="!isShowEditField">
     
       <ul>
         <li *ngFor="let key of selectedNote" 
-          [class.complete]="key.succsess">
+            [class.complete]="key.succsess">
             <input type="checkbox" 
-              name="{{key.id}}" 
-              (click)="checkInput(key)"
-              [checked]="key.succsess">
+                   [name]="key.id" 
+                   (click)="checkInput(key)"
+                   [checked]="key.succsess">
            
             <label for="{{key.id}}" 
-              [class.complete]="key.succsess">
+                   [class.complete]="key.succsess">
               {{key.text}}
             </label>
            
             <button type="button" class="redact" 
-            (click)="changeNote(key)">
+                    (click)="changeNote(key)">
             ✎
             </button>
-            <button type="button"  class="close"
-              (click)="deleteElem(key)">
+
+            <button type="button"  
+                    class="close"
+                    (click)="deleteElem(key)">
               X
             </button>
         </li> 
-      </ul>
-     
-    
+      </ul>    
     </div>
