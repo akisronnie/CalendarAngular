@@ -86,7 +86,7 @@ export class CalendarComponent implements OnInit {
         }
 
         if (amountEmpty !== i || date.getMonth() !== month) {
-          week.days.push({ value: '', isActive: false, currentDay: currentDay });
+          week.days.push({ value: '', isActive: false, currentDay });
         } else {
           const myKey: string = `${date.getFullYear()}${this.getMonthName(date.getMonth())}${date.getDate()}`;
           let isActive: boolean = false;
@@ -97,7 +97,7 @@ export class CalendarComponent implements OnInit {
             isActive = false;
           }
 
-          week.days.push({ value: `${date.getDate()}`, isActive: isActive, currentDay: currentDay });
+          week.days.push({ value: `${date.getDate()}`, isActive, currentDay });
           date.setDate(date.getDate() + 1);
         }
       }

@@ -32,7 +32,6 @@ export class TodoComponent {
   }
 
   public changeNote(note: { id: number; text: string; succsess: boolean }): void {
-    console.log(note);
     this.isShowRedactField = false;
     this.redactField = note.text;
     this.redactNote = note;
