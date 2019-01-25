@@ -6,7 +6,7 @@
   <input autofocus="autofocus"
          type="text"
          placeholder="Whats needs to be done?"
-         (change)="changeRedact()"
+         (change)="changeEditField()"
          [(ngModel)]="editField"
          class="newMessage"
          #inputForm>
@@ -16,7 +16,7 @@
         [class.complete]="key.success">
       <input type="checkbox"
              [name]="key.id"
-             (click)="checkInput(key)"
+             (click)="checkSuccessNote(key)"
              [checked]="key.success">
 
       <label for="{{key.id}}"
@@ -26,13 +26,13 @@
 
       <button type="button"
               class="redact"
-              (click)="changeNote(key)">
+              (click)="changeNoteButtonPress(key)">
         ✎
       </button>
 
       <button type="button"
               class="close"
-              (click)="deleteElem(key)">
+              (click)="deleteButtonPress(key)">
         X
       </button>
     </li>

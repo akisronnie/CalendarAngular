@@ -19,7 +19,7 @@ export class TodoComponent {
   public editOneNote: TNote;
 
 
-  public changeRedact(): void {
+  public changeEditField(): void {
     if (this.isNewNote) {
       this.selectedNotes.forEach((note: { id: number }) => {
         if (note.id > this.positionForId) {
@@ -38,19 +38,19 @@ export class TodoComponent {
     this.editField = '';
   }
 
-  public changeNote(note: TNote): void {
+  public changeNoteButtonPress(note: TNote): void {
     this.editField = note.text;
     this.editOneNote = note;
     this.isNewNote = false;
     this.inputForm.nativeElement.focus();
   }
 
-  public deleteElem(deletedElement: TNote): void {
+  public deleteButtonPress(deletedElement: TNote): void {
     this.selectedNotes = this.selectedNotes.filter((list: TNote) => list !== deletedElement);
     this.changeSelectedNotes.emit(this.selectedNotes);
   }
 
-  public checkInput(key: { success: boolean }): void {
+  public checkSuccessNote(key: { success: boolean }): void {
     key.success = !key.success;
     this.changeSelectedNotes.emit(this.selectedNotes);
   }
