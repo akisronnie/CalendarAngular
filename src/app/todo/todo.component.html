@@ -1,23 +1,15 @@
 <div id="todoContainer">
   <h1>TODO LIST</h1>
 
-  <h1>{{selectedDate.date}} {{selectedDate.month}} {{selectedDate.year}}</h1>
-
-  <input class="newMessage"
-         autofocus="autofocus"
-         type="text"
-         placeholder="Whats needs to be done?"
-         (change)="changeInput()"
-         [(ngModel)]="newTask"
-         *ngIf="isShowEditField">
+  <h1>{{selectedDateToShow.date}} {{selectedDateToShow.month}} {{selectedDateToShow.year}}</h1>
 
   <input autofocus="autofocus"
          type="text"
+         placeholder="Whats needs to be done?"
          (change)="changeRedact()"
-         (blur)="changeRedact()"
          [(ngModel)]="editField"
-         *ngIf="!isShowEditField"
-         class="newMessage">
+         class="newMessage"
+         #inputForm>
 
   <ul>
     <li *ngFor="let key of selectedNotes"
