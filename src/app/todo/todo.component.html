@@ -1,44 +1,44 @@
 <div id="todoContainer">
     <h1>TODO LIST</h1>
     <h1>{{selectedDate.date}} {{selectedDate.month}} {{selectedDate.year}}</h1>
-      <input id="newMessage" 
-             autofocus="autofocus" 
-             type="text" 
-             placeholder="Whats needs to be done?" 
+      <input class="newMessage"
+             autofocus="autofocus"
+             type="text"
+             placeholder="Whats needs to be done?"
              (change)="changeInput()"
-             [(ngModel)]="inputNewTask"
+             [(ngModel)]="newTask"
              *ngIf="isShowEditField">
-     
-      <input id="newMessage" 
-             autofocus="autofocus" 
-             type="text" 
+
+      <input autofocus="autofocus"
+             type="text"
              (change)="changeRedact()"
              [(ngModel)]="editField"
-             *ngIf="!isShowEditField">
-    
+             *ngIf="!isShowEditField"
+             class="newMessage">
+
       <ul>
-        <li *ngFor="let key of selectedNote" 
-            [class.complete]="key.succsess">
-            <input type="checkbox" 
-                   [name]="key.id" 
+        <li *ngFor="let key of selectedNotes"
+            [class.complete]="key.success">
+            <input type="checkbox"
+                   [name]="key.id"
                    (click)="checkInput(key)"
-                   [checked]="key.succsess">
-           
-            <label for="{{key.id}}" 
-                   [class.complete]="key.succsess">
-              {{key.text}}
+                   [checked]="key.success">
+
+            <label for="{{key.id}}"
+                   [class.complete]="key.success">
+              {{ key.text }}
             </label>
-           
-            <button type="button" class="redact" 
+
+            <button type="button" class="redact"
                     (click)="changeNote(key)">
             ✎
             </button>
 
-            <button type="button"  
+            <button type="button"
                     class="close"
                     (click)="deleteElem(key)">
               X
             </button>
-        </li> 
-      </ul>    
+        </li>
+      </ul>
     </div>

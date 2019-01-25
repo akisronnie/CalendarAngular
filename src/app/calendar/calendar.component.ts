@@ -1,35 +1,24 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
-type TDate = {
-  year: string;
-  month: string;
-  date: string
-};
-type TDay = {
-  value: string;
-  isActive: boolean;
-  currentDay: boolean
-};
-
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css']
 })
 export class CalendarComponent implements OnInit {
-  public weeks: { days: TDay[] }[] = [];
-  public curentYear: number;
-  public curentMonth: number;
-  public curentMonthName: string;
-  public date: Date;
-
-  private dateOfNow: Date = new Date();
-  private nameOfMonth: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-  'August', 'September', 'October', 'November', 'December'];
-
   @Input() public myNotes: {};
   @Output() public clickValue: EventEmitter<{}> = new EventEmitter;
 
+  public weeks: { days: TDay[] }[] = [];
+  public currentYear: number;
+  public currentMonth: number;
+  public currentMonthName: string;
+  public date: Date;
+
+
+  private _dateOfNow: Date = new Date();
+  private _nameOfMonth: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+  'August', 'September', 'October', 'November', 'December'];
 
   public ngOnInit(): void {
     this.writeWeeks(2019, 0);
@@ -37,8 +26,12 @@ export class CalendarComponent implements OnInit {
 
   public clickOnDate(td: TDay): void {
 
-    const selectedDate: TDate = { year: `${this.curentYear}`, month: `${this.getMonthName(this.curentMonth)}`, date: `${td.value}` };
-    this.clickValue.emit(selectedDate);
+    const selectedDate: TDate = { year: `${this.currentYear}`, month: `${this.getMonthName(this.currentMonth)}`, date: `${td.value}` };
+
+    if (Number(selectedDate.date) !== 0) {
+      this.clickValue.emit(selectedDate);
+    }
+
     this.weeks.forEach((week: { days: [] }) => {
       week.days.forEach((day: TDay) => {
         const myKey: string = `${this.date.getFullYear()}${this.getMonthName(this.date.getMonth() - 1)}${day.value}`;
@@ -48,42 +41,41 @@ export class CalendarComponent implements OnInit {
         } else {
           day.isActive = false;
         }
-
       });
     });
+
     if (td.value !== '') {
       td.isActive = true;
     }
   }
 
   public changeYear(changeYearValue: number): void {
-    this.curentYear += changeYearValue;
-    this.writeWeeks(this.curentYear, this.curentMonth);
+    this.currentYear += changeYearValue;
+    this.writeWeeks(this.currentYear, this.currentMonth);
   }
 
   public changeMonth(changeMonthValue: number): void {
-    this.curentMonth += changeMonthValue;
+    this.currentMonth += changeMonthValue;
 
-    if (this.curentMonth === 12) {
-      this.curentMonth = 0;
-      this.curentYear++;
+    if (this.currentMonth === 12) {
+      this.currentMonth = 0;
+      this.currentYear++;
     }
 
-    if (this.curentMonth < 0) {
-      this.curentMonth = 11;
-      this.curentYear--;
+    if (this.currentMonth < 0) {
+      this.currentMonth = 11;
+      this.currentYear--;
     }
 
-
-    this.writeWeeks(this.curentYear, this.curentMonth);
+    this.writeWeeks(this.currentYear, this.currentMonth);
   }
 
   public writeWeeks(year: number, month: number): void {
     const date: Date = new Date(year, month);
     let currentDay: boolean = false;
-    this.curentYear = year;
-    this.curentMonth = month;
-    this.curentMonthName = this.getMonthName(month);
+    this.currentYear = year;
+    this.currentMonth = month;
+    this.currentMonthName = this.getMonthName(month);
     this.weeks = [];
 
     while (date.getMonth() === month) {
@@ -94,8 +86,8 @@ export class CalendarComponent implements OnInit {
         amountEmpty = amountEmpty ? amountEmpty : 7;
         currentDay = false;
 
-        if (this.dateOfNow.getMonth() === date.getMonth() && this.dateOfNow.getDate() === date.getDate() &&
-          this.dateOfNow.getFullYear() === date.getFullYear()) {
+        if (this._dateOfNow.getMonth() === date.getMonth() && this._dateOfNow.getDate() === date.getDate() &&
+          this._dateOfNow.getFullYear() === date.getFullYear()) {
           currentDay = true;
         }
 
@@ -121,6 +113,6 @@ export class CalendarComponent implements OnInit {
   }
 
   private getMonthName(index: number): string {
-    return this.nameOfMonth[index];
+    return this._nameOfMonth[index];
   }
 }

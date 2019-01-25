@@ -3,10 +3,11 @@
                 [myNotes]="myNotes">
   </app-calendar>
 
-  <app-todo *ngIf="isShowTodo" 
-            (changedInput)="changeInput($event)"
-            [selectedDate]="selectedDate"
-            [selectedNote]="selectedNote">
+  <app-todo *ngIf="isShowTodo"
+            (changedInput) = "changeInput($event)"
+            [selectedDate] = "selectedDate"
+            [selectedNotes] = "selectedNotes"
+            [isShowEditField] = "isShowEditField">
   </app-todo>
 </div>
- 
+

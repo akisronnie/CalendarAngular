@@ -2,7 +2,7 @@
   <div class="viewYear">
     <button type="button" (click)="changeYear(-1)">⇦</button>
 
-    <span>Year: {{curentYear}}</span>
+    <span>Year: {{ currentYear }}</span>
 
     <button type="button" (click)="changeYear(1)">⇨</button>
   </div>
@@ -10,7 +10,7 @@
   <div class="viewMonth">
     <button type="button" (click)="changeMonth(-1)">⇦</button>
 
-    <span>Month: {{curentMonthName}}</span>
+    <span>Month: {{ currentMonthName }}</span>
 
     <button type="button" (click)="changeMonth(1)">⇨</button>
   </div>
@@ -33,7 +33,7 @@
             (click)="clickOnDate(day)"
             [class.is-note]="day.isActive"
             [class.current-day]="day.currentDay">
-          {{day.value}}
+          {{ day.value }}
         </td>
       </tr>
     </tbody>

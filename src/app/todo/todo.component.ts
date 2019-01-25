@@ -1,44 +1,33 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
 
-type TNote = {
-  id: number;
-  text: string;
-  succsess: boolean
-};
-
-type TDate = {
-  year: string;
-  month: string;
-  date: string
-};
-
 @Component({
   selector: 'app-todo',
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.css']
 })
 export class TodoComponent {
-  public inputNewTask: string;
-  public position: number = 0;
-  public isShowEditField: boolean = true;
-  public editField: string;
-  public editNote: TNote;
-
   @Input() public selectedDate: TDate;
-  @Input() public selectedNote: TNote[];
+  @Input() public selectedNotes: TNote[];
+  @Input() public isShowEditField: boolean;
   @Output() public changedInput: EventEmitter<TNote[]> = new EventEmitter;
 
 
+  public newTask: string;
+  public position: number = 0;
+  public editField: string;
+  public editNote: TNote;
+
   public changeInput(): void {
-    this.selectedNote.forEach((note: { id: number }) => {
+
+    this.selectedNotes.forEach((note: { id: number }) => {
       if (note.id > this.position) {
         this.position = note.id + 1;
       }
     });
 
-    this.selectedNote.push({ text: this.inputNewTask, succsess: false, id: this.position });
-    this.changedInput.emit(this.selectedNote);
-    this.inputNewTask = '';
+    this.selectedNotes.push({ text: this.newTask, success: false, id: this.position });
+    this.changedInput.emit(this.selectedNotes);
+    this.newTask = '';
   }
 
   public changeNote(note: TNote): void {
@@ -52,14 +41,14 @@ export class TodoComponent {
     this.isShowEditField = true;
   }
 
-  public deleteElem(deletedElement: {}): void {
-    this.selectedNote = this.selectedNote.filter((list: {}) => list !== deletedElement);
-    this.changedInput.emit(this.selectedNote);
+  public deleteElem(deletedElement: TNote): void {
+    this.selectedNotes = this.selectedNotes.filter((list: TNote) => list !== deletedElement);
+    this.changedInput.emit(this.selectedNotes);
   }
 
-  public checkInput(key: { succsess: boolean }): void {
-    key.succsess = !key.succsess;
-    this.changedInput.emit(this.selectedNote);
+  public checkInput(key: { success: boolean }): void {
+    key.success = !key.success;
+    this.changedInput.emit(this.selectedNotes);
   }
 }
 

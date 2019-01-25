@@ -1,50 +1,45 @@
 import { Component } from '@angular/core';
 
-type TDate = {
-  year: string;
-  month: string;
-  date: string
-};
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
   public isShowTodo: boolean = false;
-  public myNotes: {} = {};
+  public myNotes: TNotes = {};
   public selectedDate: TDate;
-  public selectedNote: [] = [];
+  public selectedNotes: TNote[] = [];
+  public isShowEditField: boolean = true;
 
-  private key: string;
-  private notesFromStorage: string;
+  private _key: string;
+  private _notesFromStorage: string;
 
 
   public constructor() {
-    this.notesFromStorage = localStorage.getItem('myNotesAngular');
-    this.myNotes = this.notesFromStorage ? JSON.parse(this.notesFromStorage) : {};
+    this._notesFromStorage = localStorage.getItem('myNotesAngular');
+    this.myNotes = this._notesFromStorage ? JSON.parse(this._notesFromStorage) : {};
   }
 
   public saveInLocalStorage(): void {
     localStorage.setItem('myNotesAngular', JSON.stringify(this.myNotes));
   }
 
-  public clickOnDate(date: { year: string; month: string; date: string }): void {
+  public clickOnDate(date: TDate): void {
     this.selectedDate = date;
-
-    this.isShowTodo = Number(date.date) !== 0;
-
-    this.key = `${date.year}${date.month}${date.date}`;
-    this.selectedNote = this.myNotes.hasOwnProperty(this.key)
-      ? this.myNotes[this.key]
+    this.isShowTodo = true;
+    this.isShowEditField = true;
+    this._key = `${date.year}${date.month}${date.date}`;
+    this.selectedNotes = this.myNotes.hasOwnProperty(this._key)
+      ? this.myNotes[this._key]
       : [];
     this.saveInLocalStorage();
   }
 
-  public changeInput(event: []): void {
-    this.selectedNote = event;
-    this.myNotes[this.key] = event;
+  public changeInput(note: TNote[]): void {
+    this.selectedNotes = note;
+    this.myNotes[this._key] = note;
     this.saveInLocalStorage();
   }
 }
