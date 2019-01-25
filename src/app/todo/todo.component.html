@@ -1,44 +1,47 @@
 <div id="todoContainer">
-    <h1>TODO LIST</h1>
-    <h1>{{selectedDate.date}} {{selectedDate.month}} {{selectedDate.year}}</h1>
-      <input class="newMessage"
-             autofocus="autofocus"
-             type="text"
-             placeholder="Whats needs to be done?"
-             (change)="changeInput()"
-             [(ngModel)]="newTask"
-             *ngIf="isShowEditField">
+  <h1>TODO LIST</h1>
 
-      <input autofocus="autofocus"
-             type="text"
-             (change)="changeRedact()"
-             [(ngModel)]="editField"
-             *ngIf="!isShowEditField"
-             class="newMessage">
+  <h1>{{selectedDate.date}} {{selectedDate.month}} {{selectedDate.year}}</h1>
 
-      <ul>
-        <li *ngFor="let key of selectedNotes"
-            [class.complete]="key.success">
-            <input type="checkbox"
-                   [name]="key.id"
-                   (click)="checkInput(key)"
-                   [checked]="key.success">
+  <input class="newMessage"
+         autofocus="autofocus"
+         type="text"
+         placeholder="Whats needs to be done?"
+         (change)="changeInput()"
+         [(ngModel)]="newTask"
+         *ngIf="isShowEditField">
 
-            <label for="{{key.id}}"
-                   [class.complete]="key.success">
-              {{ key.text }}
-            </label>
+  <input autofocus="autofocus"
+         type="text"
+         (change)="changeRedact()"
+         [(ngModel)]="editField"
+         *ngIf="!isShowEditField"
+         class="newMessage">
 
-            <button type="button" class="redact"
-                    (click)="changeNote(key)">
-            ✎
-            </button>
+  <ul>
+    <li *ngFor="let key of selectedNotes"
+        [class.complete]="key.success">
+      <input type="checkbox"
+             [name]="key.id"
+             (click)="checkInput(key)"
+             [checked]="key.success">
 
-            <button type="button"
-                    class="close"
-                    (click)="deleteElem(key)">
-              X
-            </button>
-        </li>
-      </ul>
-    </div>
+      <label for="{{key.id}}"
+             [class.complete]="key.success">
+        {{ key.text }}
+      </label>
+
+      <button type="button"
+              class="redact"
+              (click)="changeNote(key)">
+        ✎
+      </button>
+
+      <button type="button"
+              class="close"
+              (click)="deleteElem(key)">
+        X
+      </button>
+    </li>
+  </ul>
+</div>
