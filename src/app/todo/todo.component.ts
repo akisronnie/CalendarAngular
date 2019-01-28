@@ -15,43 +15,43 @@ export class TodoComponent {
   @ViewChild('inputForm') public inputForm: ElementRef;
 
   public positionForId: number = 0;
-  public editField: string;
+  public inputField: string;
   public editOneNote: TNote;
 
 
-  public changeEditField(): void {
+  public changeField(): void {
     if (this.isNewNote) {
-      this.selectedNotes.forEach((note: { id: number }) => {
+      this.selectedNotes.forEach((note: TNote) => {
         if (note.id > this.positionForId) {
           this.positionForId = note.id + 1;
         }
       });
 
-      this.selectedNotes.push({ text: this.editField, success: false, id: this.positionForId });
+      this.selectedNotes.push({ text: this.inputField, success: false, id: this.positionForId });
 
     } else {
-      this.editOneNote.text = this.editField;
+      this.editOneNote.text = this.inputField;
       this.isNewNote = true;
     }
 
     this.changeSelectedNotes.emit(this.selectedNotes);
-    this.editField = '';
+    this.inputField = '';
   }
 
-  public changeNoteButtonPress(note: TNote): void {
-    this.editField = note.text;
+  public editNote(note: TNote): void {
+    this.inputField = note.text;
     this.editOneNote = note;
     this.isNewNote = false;
     this.inputForm.nativeElement.focus();
   }
 
-  public deleteButtonPress(deletedElement: TNote): void {
+  public deleteNote(deletedElement: TNote): void {
     this.selectedNotes = this.selectedNotes.filter((list: TNote) => list !== deletedElement);
     this.changeSelectedNotes.emit(this.selectedNotes);
   }
 
-  public checkSuccessNote(key: { success: boolean }): void {
-    key.success = !key.success;
+  public toggleSuccessNote(note: TNote): void {
+    note.success = !note.success;
     this.changeSelectedNotes.emit(this.selectedNotes);
   }
 }
